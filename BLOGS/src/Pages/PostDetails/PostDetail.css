@@ -1,0 +1,64 @@
+.post-detail {
+    width: 50%;
+    background: #f8f8f8;
+    margin-inline: auto;
+    padding: 2rem 0;
+
+}
+.post-detail_header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.post-detail_buttons {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin-left: auto;
+    padding-right: 4rem;
+
+}
+
+.btn_edit {
+    background-color: rgb(13, 13, 226);
+    padding: 0.4rem;
+    min-width: 100px;
+    color: rgb(245, 245, 245);
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+   
+}
+.btn-sm-primary {
+    background-color: rgb(243, 8, 8);
+    padding: 0.4rem;
+    text-decoration: none;
+    color: rgb(245, 245, 245);
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    min-width: 100px;
+    text-align: center;
+}
+.post-detail_thumbnail {
+    margin: 1rem 0;
+    height: fit-content;
+    max-height: 50rem;
+    overflow: hidden;
+    max-width: 50rem;
+    align-items: center;
+    align-content: center;
+    padding: 4rem 4rem;
+
+}
+.p-content {
+    margin-bottom: 0.5rem;
+    font-family: "Poppins" , "sans-sarif";
+    font-size: 40px;
+    align-items: flex-start;
+    padding: 2rem ;
+}

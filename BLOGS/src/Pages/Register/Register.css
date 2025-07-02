@@ -1,0 +1,145 @@
+/* Register.css */
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f0f2f5;
+  padding: 40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 700px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 50px;
+}
+
+.register-title {
+  text-align: center;
+  color: #eb842f;
+  margin-bottom: 40px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 50%;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 40px;
+  color: #4a5568;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  text-align: left;
+}
+
+.form-input {
+  width: 100%;
+  min-width: 600px; 
+  padding: 25px 30px; 
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 22px;
+  transition: all 0.3s ease;
+  background-color: #f8fafc;
+  box-sizing: border-box;
+  margin: 0 auto; 
+  display: block;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  background-color: white;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2);
+}
+
+.register-button {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.register-button:hover {
+  background: #4338ca;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+}
+
+.login-redirect {
+  text-align: center;
+  margin-top: 30px;
+  color: #4a5568;
+  font-size: 22px;
+  font-family: "Poppins","sans-sarif";
+  font-weight: bolder;
+}
+
+.login-link {
+  color: #4f46e5;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: #4338ca;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .register-container {
+    padding: 20px;
+  }
+  
+  .register-card {
+    padding: 40px 30px;
+  }
+  
+  .register-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+  
+  .form-label {
+    font-size: 16px;
+  }
+  
+  .form-input {
+    padding: 16px;
+    font-size: 16px;
+  }
+  
+  .register-button {
+    padding: 18px;
+    font-size: 18px;
+  }
+  
+  .login-redirect {
+    font-size: 16px;
+  }
+}

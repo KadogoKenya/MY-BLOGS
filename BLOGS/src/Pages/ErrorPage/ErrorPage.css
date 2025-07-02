@@ -1,0 +1,35 @@
+.error-page {
+  min-height: 100vh;
+  background-color: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  flex-direction: column;
+}
+
+.center {
+  text-align: center;
+}
+
+.error-page h2 {
+  font-size: 2rem;
+  margin-top: 1.5rem;
+  color: #333;
+}
+
+.btn-primary {
+  background-color: #3934ec;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  padding: 0.75rem 2rem;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #2c28b5;
+}

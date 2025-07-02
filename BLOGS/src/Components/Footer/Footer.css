@@ -1,0 +1,30 @@
+
+.footerList {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3.5rem;
+    margin-bottom: 4rem;
+}
+.footer-link {
+    background-color: #333;
+    color: #fff;
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--radius-2);
+    transition: var(--transition);
+
+}
+.footer-link :hover ,
+.footer-link :active {
+    background-color: #FFFFFF;
+    color: #212529;
+}
+.copyRight {
+  background-color: #f4f4f4;
+  text-align: center;
+  margin: 6rem;
+  padding: 6rem;
+  font-size: 0.9rem;
+  color: #333;
+  border-top: 1px solid #ccc;
+}

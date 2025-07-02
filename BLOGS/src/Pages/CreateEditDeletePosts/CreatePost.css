@@ -1,0 +1,89 @@
+.create_post {
+  padding: 3rem 1rem;
+  background-color: #f7f8fa;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 10rem;
+
+}
+
+.create_post .container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 1200px;
+  max-height: 1200px;
+}
+
+.create_posts_form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  /* max-width: 1200px; */
+}
+
+.create_posts_form h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.create_posts_form input[type="text"],
+.create_posts_form select,
+.create_posts_form input[type="file"] {
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border 0.3s;
+}
+
+.create_posts_form input[type="text"]:focus,
+.create_posts_form select:focus {
+  outline: none;
+  border-color: #5e9cff;
+}
+
+.create_posts_form input[type="file"] {
+  padding: 0.5rem;
+}
+
+.create_posts_form .ql-container {
+  border-radius: 8px;
+  min-height: 200px;
+  font-size: 1rem;
+}
+
+.create_posts_form .ql-toolbar {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.create_posts_form .ql-container.ql-snow {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.btn.primary {
+  padding: 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn.primary:hover {
+  background-color: #3c8e43;
+}

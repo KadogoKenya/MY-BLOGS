@@ -1,0 +1,45 @@
+/* Author Posts Section */
+.author-posts {
+  padding: 3rem 0;
+  background-color: #f9f9f9;
+  margin-top: 10rem;
+}
+
+.author-posts__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Empty state message */
+.author-posts__empty-message {
+  text-align: center;
+  color: #666;
+  font-size: 1.8rem;
+  font-weight: 400;
+  padding: 4rem 0;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .author-posts__grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .author-posts {
+    padding: 2rem 0;
+  }
+  
+  .author-posts__grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+   
+  }
+}

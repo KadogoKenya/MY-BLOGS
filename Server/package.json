@@ -4,7 +4,8 @@
   "description": "blogsdb",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon Server.js",
+    "start": "node Server.js"
   },
   "author": "kate",
   "license": "ISC",
@@ -17,6 +18,8 @@
   },
   "devDependencies": {
     "@prisma/client": "^6.11.1",
-    "prisma": "^6.11.1"
+    "prisma": "^6.11.1",
+    "nodemon": "^3.1.0"
   }
 }
+

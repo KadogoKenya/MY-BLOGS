@@ -13,7 +13,7 @@ const prisma = new PrismaClient();
 
 
 //assigning port
-const PORT = process.env.PORT || 5432;
+const PORT = process.env.PORT || 3000;
 
 // Middlewares
 app.use(cors());

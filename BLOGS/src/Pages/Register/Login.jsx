@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 
 function Login() {
@@ -8,19 +8,48 @@ function Login() {
     password: ''
   });
 
+  const navigate = useNavigate();
+
+
   const changeInputHandler = (e) => {
     setUserData(prevState => {
       return { ...prevState, [e.target.name]: e.target.value };
     });
   };
 
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch('http://localhost:3000/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userData)
+    });
+
+    const data = await response.json();
+
+    if (response.ok) { 
+      alert("Registration successful");
+      navigate("/posts");
+    } else {
+      alert(data.message || "Registration failed");
+    }
+
+  } catch (error) { 
+    console.error("Error:", error);
+    alert("Server error");
+  }
+};
   return (
     <div className="login-container">
       <div className="login-card">
         <h2 className="login-title">Welcome Back</h2>
         <p className="login-subtitle">Please enter your credentials to login</p>
         
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email" className="form-label">Email Address</label>
             <input 

@@ -1,28 +1,27 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '../lib/db.js'; 
 import bcrypt from 'bcrypt';
 
-
-
-const prisma = new PrismaClient();
-
-const signup = async (req, res) => {
+const register = async (req, res) => {
   try {
-    const { fullName, email, password } = req.body;
+    // Destructure fullName from the request body
+    const { fullName, email, password } = req.body; 
 
-    // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
+    // Validation: Check that fullName, email, and password are provided
+    if (!fullName || !email || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
+    // Check if a user with the provided email already exists
+    const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ message: "Email already exists" });
     }
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create the new user
-    const user = await prisma.user.create({
+    
+    // Create the new user record with the provided fullName, email, and hashed password
+    await prisma.user.create({
       data: {
         fullName,
         email,
@@ -30,18 +29,12 @@ const signup = async (req, res) => {
       },
     });
 
-    // Respond with success and user info (omit password)
-    return res.status(201).json({
-      message: "User created successfully",
-      user: {
-        id: user.id,
-        email: user.email,
-      },
-    });
+    return res.status(201).json({ message: "Registration successful" });
+
   } catch (error) {
-    console.error("Signup error:", error);
+    console.error("Registration error:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
 
-export {signup};
+export { register };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Register.css';
 
 function Register() {
@@ -10,18 +10,55 @@ function Register() {
     password2: ''
   });
 
+  const navigate = useNavigate();
+
   const changeInputHandler = (e) => {
-    setUserData(prevState => {
-      return { ...prevState, [e.target.name]: e.target.value };
-    });
+    setUserData(prevState => ({
+      ...prevState,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (userData.password !== userData.password2) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5432/signup", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          fullname: userData.name,
+          email: userData.email,
+          password: userData.password
+        })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert("Signup is successful");
+        navigate('/login');
+      } else {
+        alert(data.message || "Signup failed");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
+    }
   };
 
   return (
     <div className="register-container">
       <div className="register-card">
         <h2 className="register-title">Create Your Account</h2>
-        
-        <form className="register-form">
+
+        <form className="register-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name" className="form-label">Full Name</label>
             <input 
@@ -34,7 +71,7 @@ function Register() {
               required
             />
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="email" className="form-label">Email Address</label>
             <input 
@@ -47,7 +84,7 @@ function Register() {
               required
             />
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="password" className="form-label">Password</label>
             <input 
@@ -60,7 +97,7 @@ function Register() {
               required
             />
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="password2" className="form-label">Confirm Password</label>
             <input 
@@ -73,12 +110,12 @@ function Register() {
               required
             />
           </div>
-          
+
           <button type="submit" className="register-button">
             Register Now
           </button>
         </form>
-        
+
         <div className="login-redirect">
           Already have an account? <Link to="/login" className="login-link">Sign In</Link>
         </div>

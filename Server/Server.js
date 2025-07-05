@@ -5,11 +5,12 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 
-import authRoutes from './routes/auth.js'; 
+import authRoutes from '../Server/src/controllers/auth.js'; 
 
 // Initialize app and Prisma
 const app = express();
 const prisma = new PrismaClient();
+
 
 //assigning port
 const PORT = process.env.PORT || 5432;

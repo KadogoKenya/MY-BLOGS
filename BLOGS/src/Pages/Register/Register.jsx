@@ -34,13 +34,14 @@ function Register() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          fullname: userData.name,
+          name: userData.name,
           email: userData.email,
           password: userData.password
         })
       });
 
       const data = await response.json();
+
       if (response.ok) {
         alert("Signup is successful");
         navigate('/login');

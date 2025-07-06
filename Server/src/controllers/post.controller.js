@@ -24,4 +24,16 @@ const createPost = async (req,res) =>{
     }
 };
 
-export { createPost }
+const getPosts = async (req, res) => {
+    try {
+        const posts = await prisma.post.findMany({
+            orderBy: { createdAt: 'desc' }
+        });
+        res.status(200).json({ posts });
+    }catch(error){
+        console.error('unable to fetch posts', error)
+        res.status(500).json({ message: 'internal server error occurred' });
+    }
+};
+
+export { createPost, getPosts }

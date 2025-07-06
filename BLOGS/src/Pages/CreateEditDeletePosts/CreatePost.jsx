@@ -54,11 +54,16 @@ function CreatePost() {
 
       const data = await response.json();
 
-      if (!response.ok) {
+      if(response.ok){
+        alert("Post created successfully!");
+        navigate("/");
+      }
+
+      else {
         throw new Error(data.message || 'Post creation failed');
       }
 
-      alert("Post created successfully!");
+      
       setTitle('');
       setCategory('Uncategorised');
       setDescription('');

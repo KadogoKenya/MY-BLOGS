@@ -16,15 +16,15 @@ import CreatePost from './CreateEditDeletePosts/CreatePost';
 function Home() {
   return (
     <div>
-      {/* <Posts />
-      <PostDetail />
-      <AuthorPosts />
-      <CategoryPosts /> */}
+      <Posts />
+      {/* <PostDetail /> */}
+      {/* <AuthorPosts /> */}
+      {/* <CategoryPosts />  */}
       {/* <Register /> */}
       {/* <Authors /> */}
       {/* <UserProfile /> */}
       {/* <Dashboard /> */}
-      <CreatePost />
+      {/* <CreatePost /> */}
     </div>
   )
 }

@@ -10,39 +10,43 @@ function Login() {
 
   const navigate = useNavigate();
 
-
   const changeInputHandler = (e) => {
-    setUserData(prevState => {
-      return { ...prevState, [e.target.name]: e.target.value };
-    });
+    setUserData(prevState => ({
+      ...prevState,
+      [e.target.name]: e.target.value
+    }));
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const response = await fetch('http://localhost:3000/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(userData)
-    });
+    try {
+      const response = await fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+          body: JSON.stringify({
+          email: userData.email,
+          password: userData.password
+        })
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (response.ok) { 
-      alert("Registration successful");
-      navigate("/posts");
-    } else {
-      alert(data.message || "Registration failed");
+      if (response.ok) {
+        alert("Login successful");
+        navigate("/");
+      } else {
+        alert(data.message || "Login failed");
+      }
+
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Server error");
     }
+  };
 
-  } catch (error) { 
-    console.error("Error:", error);
-    alert("Server error");
-  }
-};
   return (
     <div className="login-container">
       <div className="login-card">

@@ -97,7 +97,7 @@
     overflow: hidden;
 }
 
-/* .post-card img {
+.post-card img {
     width: 100%;
     height: 30rem;
     object-fit: cover;
@@ -140,7 +140,7 @@
     color: #6c757d;
     margin: 0 1rem 1rem;
     font-weight: normal;
-} */
+}
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './CreatePost.css';
@@ -30,6 +31,8 @@ function CreatePost() {
     'link', 'image'
   ];
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -56,7 +59,7 @@ function CreatePost() {
 
       if(response.ok){
         alert("Post created successfully!");
-        navigate("/");
+        navigate(`/posts/users/${data.post.authorId}`);
       }
 
       else {

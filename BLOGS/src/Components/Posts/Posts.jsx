@@ -13,7 +13,7 @@ function Posts() {
         const data = await res.json();
 
         if (res.ok) {
-          setPosts(data.posts || []); // Assuming your backend returns { posts: [...] }
+          setPosts(data.posts || []);
         } else {
           console.error("Server returned error:", data.message);
         }
@@ -24,7 +24,7 @@ function Posts() {
       }
     };
 
-    fetchPosts(); // ← This line was misplaced inside finally before
+    fetchPosts();
   }, []);
 
   return (
@@ -33,7 +33,7 @@ function Posts() {
         <h2>Loading...</h2>
       ) : posts.length > 0 ? (
         <div className="posts_container">
-          {posts.map(({ id, thumbnail, category, title, description, authorId }) => (
+          {posts.map(({ id, thumbnail, category, title, description, author, createdAt }) => (
             <PostItems
               key={id}
               postID={id}
@@ -41,7 +41,8 @@ function Posts() {
               category={category}
               title={title}
               description={description}
-              authorID={authorId}
+              author={author}
+              createdAt={createdAt}
             />
           ))}
         </div>

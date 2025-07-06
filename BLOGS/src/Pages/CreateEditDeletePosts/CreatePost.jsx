@@ -31,6 +31,7 @@ function CreatePost() {
     'link', 'image'
   ];
 
+  const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -45,6 +46,7 @@ function CreatePost() {
     postData.append("title", title);
     postData.append("category", category);
     postData.append("description", description);
+    postData.append("authorId", user?.id); // Use ID only
     if (thumbnail) {
       postData.append("thumbnail", thumbnail);
     }
@@ -59,16 +61,11 @@ function CreatePost() {
 
       if(response.ok){
         alert("Post created successfully!");
-        navigate(`/posts/users/${authorID}`);
-        // navigate("/");
-        // navigate(`/posts/users/${data.post.authorId}`);
-      }
-
-      else {
+        navigate(`/posts/users/${user?.id}`);
+      } else {
         throw new Error(data.message || 'Post creation failed');
       }
 
-      
       setTitle('');
       setCategory('Uncategorised');
       setDescription('');

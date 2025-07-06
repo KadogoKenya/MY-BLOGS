@@ -1,36 +1,42 @@
-import React from 'react'
-import './Posts.css'
-import {Link} from 'react-router-dom'
-import PostAuthor from './PostAuthor'
-// import Avatar from '../../assets/farmThree.jpg';
-// import Thumbnail from '../../assets/EducationOne.jpg'
+import React from 'react';
+import './Posts.css';
+import { Link } from 'react-router-dom';
 
+function PostItems({ postID, category, title, description, author, thumbnail, createdAt }) {
+  const shortDescription =
+    description.length > 145 ? description.substr(0, 145) + '...' : description;
 
-function PostItems({ postID, category,title, description, authorID, thumbnail}) {
- 
- const shortDescription = description.length > 145 ? description.substr(0, 145) +  '...' : description;
-  
- const postTitle = title.length > 30 ? title.substr(0, 30) +  "Read more" : title;
+  const postTitle = title.length > 30 ? title.substr(0, 30) + '...Read more' : title;
 
- return (
+  const readableDate = new Date(createdAt).toLocaleDateString();
+
+  return (
     <div className="post-card">
-       <div className="post_thumbnail">
-           <img src={thumbnail} alt={title} />
-       </div>
+      <div className="post_thumbnail">
+        <img src={thumbnail} alt={title} />
+      </div>
 
-        <div className="post-content">
-          <Link to={`/posts/${postID}`} className='post-title'>
-            <h3> {postTitle} </h3>
+      <div className="post-content">
+        <Link to={`/posts/${postID}`} className="post-title">
+          <h3>{postTitle}</h3>
+        </Link>
+        <p>{shortDescription}</p>
+        <div className="post_footer">
+          {author ? (
+            <Link to={`/posts/users/${author.id}`} className="post_author">
+              <span>By: {author.fullName} {author.authorId} • {readableDate}</span>
+            </Link>
+          ) : (
+            <span>{author.fullName}</span>
+          )}
+
+          <Link to={`/posts/categories/${category}`} className="btn category">
+            {category}
           </Link>
-            <p> {shortDescription} </p>
-          <div className="post_footer">
-            <PostAuthor />
-            <Link to = {`/posts/categories/${category}`} className='btn category' > {category} </Link>
-          </div>
         </div>
-        
+      </div>
     </div>
-  )
+  );
 }
 
-export default PostItems
+export default PostItems;

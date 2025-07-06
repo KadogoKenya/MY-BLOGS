@@ -16,10 +16,11 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  fullName String
-  email    String  @unique
-  password String
+  id              Int     @id @default(autoincrement())
+  fullName        String
+  email           String  @unique
+  password        String
+  posts           Post[]
 }
 model Post {
   id              Int     @id @default(autoincrement())
@@ -29,4 +30,6 @@ model Post {
   thumbnail       String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  authorId        Int?
+  author          User? @relation(fields: [authorId], references: [id])
 }

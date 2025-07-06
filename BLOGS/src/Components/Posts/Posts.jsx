@@ -1,30 +1,53 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PostItems from './PostItems';
-import EducationOne from '../../assets/EducationOne.jpg';
-import EducationTwo from '../../assets/EducationTwo.jpg';
-import groceryOne from '../../assets/groceryOne.jpg';
-import groceryTwo from '../../assets/groceryTwo.jpg';
-import groceryThree from '../../assets/groceryThree.jpg';
-import farmOne from '../../assets/farmOne.jpg';
-import farmTwo from '../../assets/farmTwo.jpg';
-import farmThree from '../../assets/farmThree.jpg';
-import { DUMMY_POSTS } from '../../Data'
-import './Posts.css'
-
+import './Posts.css';
 
 function Posts() {
-  const [posts, setPosts] = useState(DUMMY_POSTS);
-  
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch('http://localhost:3000/posts');
+        const data = await res.json();
+
+        if (res.ok) {
+          setPosts(data.posts || []); // Assuming your backend returns { posts: [...] }
+        } else {
+          console.error("Server returned error:", data.message);
+        }
+      } catch (error) {
+        console.error("Failed to fetch posts:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts(); // ← This line was misplaced inside finally before
+  }, []);
+
   return (
     <section className="posts">
-        {posts.length > 0 ? <div className="posts_container">
-            {posts.map(({id, thumbnail, category,title, description, authorID}) => (
-         <PostItems key={id} postID={id} thumbnail={thumbnail} category={category} 
-            title={title} description={description} authorID={authorID} />
-        ))}
-        </div> : <h2>No Posts Found</h2> }
-
-     
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : posts.length > 0 ? (
+        <div className="posts_container">
+          {posts.map(({ id, thumbnail, category, title, description, authorId }) => (
+            <PostItems
+              key={id}
+              postID={id}
+              thumbnail={`http://localhost:3000/uploads/${thumbnail}`}
+              category={category}
+              title={title}
+              description={description}
+              authorID={authorId}
+            />
+          ))}
+        </div>
+      ) : (
+        <h2>No Posts Found</h2>
+      )}
     </section>
   );
 }

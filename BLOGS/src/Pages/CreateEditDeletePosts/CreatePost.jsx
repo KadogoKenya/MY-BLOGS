@@ -59,7 +59,9 @@ function CreatePost() {
 
       if(response.ok){
         alert("Post created successfully!");
-        navigate(`/posts/users/${data.post.authorId}`);
+        navigate(`/posts/users/${authorID}`);
+        // navigate("/");
+        // navigate(`/posts/users/${data.post.authorId}`);
       }
 
       else {

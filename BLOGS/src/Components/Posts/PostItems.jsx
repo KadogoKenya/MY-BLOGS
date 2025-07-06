@@ -3,7 +3,7 @@ import './Posts.css'
 import {Link} from 'react-router-dom'
 import PostAuthor from './PostAuthor'
 // import Avatar from '../../assets/farmThree.jpg';
-import Thumbnail from '../../assets/EducationOne.jpg'
+// import Thumbnail from '../../assets/EducationOne.jpg'
 
 
 function PostItems({ postID, category,title, description, authorID, thumbnail}) {
@@ -15,7 +15,7 @@ function PostItems({ postID, category,title, description, authorID, thumbnail}) 
  return (
     <div className="post-card">
        <div className="post_thumbnail">
-           <img src= {Thumbnail} alt='postImage' />
+           <img src={thumbnail} alt={title} />
        </div>
 
         <div className="post-content">

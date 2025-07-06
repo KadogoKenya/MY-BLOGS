@@ -7,7 +7,7 @@ import postRoutes from './src/routes/post.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Fix __dirname for ES modules
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -15,7 +15,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const prisma = new PrismaClient();
 
-//assigning port
+//assigning ports
 const PORT = process.env.PORT || 3000;
 
 // Middlewares
@@ -25,8 +25,8 @@ app.use(cookieParser());
 
 // Routes
 app.use('/auth', authRoutes);
-app.use('/posts', postRoutes); // ✅ correct route path
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // ✅ full path to uploads
+app.use('/posts', postRoutes); 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Test route (optional)
 app.get('/', (req, res) => {

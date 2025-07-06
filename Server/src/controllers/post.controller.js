@@ -6,7 +6,7 @@ const createPost = async (req,res) =>{
         const thumbnail = req.file ? req.file.filename : null;
 
         if (!title || !description) {
-            return res.status(400).json({message: 'title and descriptionare required'})
+            return res.status(400).json({message: 'title and description are required'})
         }
 
         const post = await prisma.post.create({
@@ -20,7 +20,7 @@ const createPost = async (req,res) =>{
         res.status(201).json({ message: 'post created successfully', post })
     }catch (error){
         console.error('post creation error', error)
-        res.status(500).json({ message: 'interval server error' })
+        res.status(500).json({ message: 'internal server error' })
     }
 };
 

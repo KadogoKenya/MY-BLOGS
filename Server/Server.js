@@ -1,19 +1,19 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 import cors from 'cors';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
+import authRoutes from './src/controllers/auth.js';
+import postRoutes from './src/routes/post.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-import authRoutes from '../Server/src/controllers/auth.js'; 
-
-import postRoutes from './src/routes/post.js'
-
+// Fix __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Initialize app and Prisma
 const app = express();
 const prisma = new PrismaClient();
-
 
 //assigning port
 const PORT = process.env.PORT || 3000;
@@ -23,14 +23,17 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-// Registering routes register routes
+// Routes
 app.use('/auth', authRoutes);
+app.use('/posts', postRoutes); // ✅ correct route path
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // ✅ full path to uploads
 
-//create posts routes registration
-app.use('./posts',postRoutes)
-app.use('./uploads', express.static('uploads'))
+// Test route (optional)
+app.get('/', (req, res) => {
+  res.send('API is up and running');
+});
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`✅ Server is running on http://localhost:${PORT}`);
 });

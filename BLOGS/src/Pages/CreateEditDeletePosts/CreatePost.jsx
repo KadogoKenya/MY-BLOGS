@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import './CreatePost.css'; 
+import './CreatePost.css';
 
 function CreatePost() {
   const [title, setTitle] = useState('');
@@ -30,44 +30,57 @@ function CreatePost() {
     'link', 'image'
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simple form validation
     if (!title || !description) {
       alert("Please provide a title and description.");
       return;
     }
 
-    const newPost = {
-      title,
-      category,
-      description,
-      thumbnail,
-      createdAt: new Date().toISOString(),
-    };
+    const postData = new FormData();
+    postData.append("title", title);
+    postData.append("category", category);
+    postData.append("description", description);
+    if (thumbnail) {
+      postData.append("thumbnail", thumbnail);
+    }
 
-    console.log("Post submitted:", newPost);
-    
+    try {
+      const response = await fetch('http://localhost:3000/posts/create', {
+        method: 'POST',
+        body: postData
+      });
 
-    // Clear form after submission
-    setTitle('');
-    setCategory('Uncategorised');
-    setDescription('');
-    setThumbnail(null);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Post creation failed');
+      }
+
+      alert("Post created successfully!");
+      setTitle('');
+      setCategory('Uncategorised');
+      setDescription('');
+      setThumbnail(null);
+    } catch (error) {
+      console.error("Post error:", error);
+      alert("Failed to create a post.");
+    }
   };
 
   return (
     <section className="create_post">
       <div className="container">
         <h2>Create Post</h2>
-        <form className="form create_posts_form" onSubmit={handleSubmit}>
+        <form className="form create_posts_form" onSubmit={handleSubmit} encType="multipart/form-data">
           <input
             type="text"
             placeholder="Title"
             value={title}
             onChange={e => setTitle(e.target.value)}
             autoFocus
+            required
           />
 
           <select value={category} onChange={e => setCategory(e.target.value)}>

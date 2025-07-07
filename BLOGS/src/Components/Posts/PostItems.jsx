@@ -1,6 +1,7 @@
 import React from 'react';
 import './Posts.css';
 import { Link } from 'react-router-dom';
+import Footer from '../Footer/Footer.jsx';
 
 function PostItems({ postID, category, title, description, author, thumbnail, createdAt }) {
   const shortDescription =
@@ -8,9 +9,13 @@ function PostItems({ postID, category, title, description, author, thumbnail, cr
 
   const postTitle = title.length > 30 ? title.substr(0, 30) + '...Read more' : title;
 
-  const readableDate = new Date(createdAt).toLocaleDateString();
+  const readableDate = createdAt ? new Date(createdAt).toLocaleDateString() : 'Unknown date';
+
+  const authorName = author?.fullName || 'Unknown';
+  const authorId = author?.id;
 
   return (
+    <>
     <div className="post-card">
       <div className="post_thumbnail">
         <img src={thumbnail} alt={title} />
@@ -22,12 +27,12 @@ function PostItems({ postID, category, title, description, author, thumbnail, cr
         </Link>
         <p>{shortDescription}</p>
         <div className="post_footer">
-          {author ? (
-            <Link to={`/posts/users/${author.id}`} className="post_author">
-              <span>By: {author.fullName} {author.authorId} • {readableDate}</span>
+          {authorId ? (
+            <Link to={`/posts/users/${authorId}`} className="post_author">
+              <span>By: {authorName} • {readableDate}</span>
             </Link>
           ) : (
-            <span>{author.fullName}</span>
+            <span>By: {authorName} • {readableDate}</span>
           )}
 
           <Link to={`/posts/categories/${category}`} className="btn category">
@@ -36,6 +41,9 @@ function PostItems({ postID, category, title, description, author, thumbnail, cr
         </div>
       </div>
     </div>
+    <Footer />
+
+    </>
   );
 }
 

@@ -4,6 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from './src/controllers/auth.js';
 import postRoutes from './src/routes/post.js';
+import authorRoutes from './src/controllers/author.controllers.js'
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -27,6 +28,7 @@ app.use(cookieParser());
 app.use('/auth', authRoutes);
 app.use('/posts', postRoutes); 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/api', authorRoutes);
 
 // Test route (optional)
 app.get('/', (req, res) => {

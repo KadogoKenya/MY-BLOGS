@@ -3,15 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './CreatePost.css';
+import Footer from '../../Components/Footer';
+import { useAuth } from '../../context/AuthContext'; // Make sure this path is correct
 
 function CreatePost() {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('Uncategorised');
   const [description, setDescription] = useState('');
   const [thumbnail, setThumbnail] = useState(null);
+  const { authToken, currentUser } = useAuth(); 
+  const navigate = useNavigate();
 
   const POST_CATEGORIES = [
-    "Agriculture", "Business", "Education", "Entertainment", "Art", "Investment", "Uncategorised", "Weather"
+    "Agriculture", "Business", "Education", "Entertainment", 
+    "Art", "Investment", "Uncategorised", "Weather"
   ];
 
   const modules = {
@@ -31,11 +36,14 @@ function CreatePost() {
     'link', 'image'
   ];
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!currentUser) {
+      alert("You must be logged in to create a post");
+      navigate('/login');
+      return;
+    }
 
     if (!title || !description) {
       alert("Please provide a title and description.");
@@ -46,7 +54,8 @@ function CreatePost() {
     postData.append("title", title);
     postData.append("category", category);
     postData.append("description", description);
-    postData.append("authorId", user?.id); // Use ID only
+    postData.append("authorId", currentUser.id);
+    
     if (thumbnail) {
       postData.append("thumbnail", thumbnail);
     }
@@ -54,69 +63,79 @@ function CreatePost() {
     try {
       const response = await fetch('http://localhost:3000/posts/create', {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        },
         body: postData
       });
 
       const data = await response.json();
 
-      if(response.ok){
+      if(response.ok) {
         alert("Post created successfully!");
-        navigate(`/posts/users/${user?.id}`);
+        navigate(`/posts/users/${currentUser.id}`);
       } else {
         throw new Error(data.message || 'Post creation failed');
       }
 
+      // Reset form
       setTitle('');
       setCategory('Uncategorised');
       setDescription('');
       setThumbnail(null);
     } catch (error) {
       console.error("Post error:", error);
-      alert("Failed to create a post.");
+      alert(error.message || "Failed to create a post.");
     }
   };
 
   return (
-    <section className="create_post">
-      <div className="container">
-        <h2>Create Post</h2>
-        <form className="form create_posts_form" onSubmit={handleSubmit} encType="multipart/form-data">
-          <input
-            type="text"
-            placeholder="Title"
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            autoFocus
-            required
-          />
+    <>
+      <section className="create_post">
+        <div className="container">
+          <h2>Create Post</h2>
+          {currentUser && (
+            <p>Posting as: {currentUser.fullName || currentUser.email}</p>
+          )}
+          <form className="form create_posts_form" onSubmit={handleSubmit} encType="multipart/form-data">
+            <input
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              autoFocus
+              required
+            />
 
-          <select value={category} onChange={e => setCategory(e.target.value)}>
-            {POST_CATEGORIES.map(cat => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
-          </select>
+            <select value={category} onChange={e => setCategory(e.target.value)}>
+              {POST_CATEGORIES.map(cat => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
 
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            formats={formats}
-            value={description}
-            onChange={setDescription}
-            placeholder="Write your post content here..."
-          />
+            <ReactQuill
+              theme="snow"
+              modules={modules}
+              formats={formats}
+              value={description}
+              onChange={setDescription}
+              placeholder="Write your post content here..."
+            />
 
-          <input
-            type="file"
-            onChange={e => setThumbnail(e.target.files[0])}
-            accept=".jpg,.jpeg,.png"
-          />
+            <input
+              type="file"
+              onChange={e => setThumbnail(e.target.files[0])}
+              accept=".jpg,.jpeg,.png"
+            />
 
-          <button type="submit" className="btn primary">
-            Create
-          </button>
-        </form>
-      </div>
-    </section>
+            <button type="submit" className="btn primary">
+              Create
+            </button>
+          </form>
+        </div>
+      </section>
+      <Footer />
+    </>
   );
 }
 

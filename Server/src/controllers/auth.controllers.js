@@ -48,6 +48,11 @@ const login = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: "Passwords do not match" });
     }
+    if (response.ok) {
+      
+      setAuthToken(data.token);
+      setCurrentUser(data.user);
+    }
 
     return res.status(200).json({ message: "Login successful" });
 

@@ -1,31 +1,33 @@
 import prisma from '../lib/db.js';
 
-// Create a post
+
 const createPost = async (req, res) => {
   try {
     const { title, category, description, authorId } = req.body;
-    const thumbnail = req.file ? req.file.filename : null;
 
-    // Validate required fields
-    if (!title || !description || !authorId) {
-      return res.status(400).json({ message: 'Title, description, and authorId are required.' });
-    }
-
-    // Create the post
     const post = await prisma.post.create({
       data: {
         title,
         category,
         description,
-        thumbnail,
-        authorId: parseInt(authorId),
-      },
-    });
+        thumbnail: req.file?.filename || null,
+        authorId: req.user.id,
+       
+      include: {
+            author: {
+              select: {
+                id: true,
+                fullName: true
+              }
+            }
+          }
+        }
+        });
 
-    res.status(201).json({ message: 'Post created successfully', post });
+    res.status(201).json({ success: true, post });
   } catch (error) {
-    console.error('Post creation error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Post creation error:", error);
+    res.status(500).json({ success: false, message: "Failed to create post" });
   }
 };
 

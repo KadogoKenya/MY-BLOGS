@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Register.css'
+import Footer from '../../Components/Footer';
 
 function Register() {
   const [userData, setUserData] = useState({
@@ -70,6 +71,7 @@ function Register() {
   };
 
   return (
+    <>
     <div className="register-container">
       <div className="register-card">
         <h2 className="register-title">Create Your Account</h2>
@@ -145,6 +147,10 @@ function Register() {
         </div>
       </div>
     </div>
+
+    <Footer />
+
+    </>
   );
 }
 

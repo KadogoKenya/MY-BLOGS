@@ -1,4 +1,9 @@
 import prisma from '../lib/db.js';
+import express from 'express'
+import fs from 'fs';
+import path from 'path';
+
+const router = express.Router();
 
 
 const createPost = async (req, res) => {
@@ -85,7 +90,7 @@ export const updatePost = async (req, res) => {
     let thumbnail = existingPost.thumbnail;
 
     if (thumbnailFile) {
-      // Optional: remove old file if needed
+
       thumbnail = thumbnailFile.filename;
     }
 
@@ -107,6 +112,36 @@ export const updatePost = async (req, res) => {
     return res.status(500).json({ message: 'Failed to update post', error });
   }
 };
+
+export const deletePost = async (req, res) => {
+  const postId = parseInt(req.params.id);
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: { id: postId }
+    });
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const imagePath = path.join('uploads', post.thumbnail);
+    if (fs.existsSync(imagePath)) {
+      fs.unlinkSync(imagePath);
+    }
+
+    await prisma.post.delete({
+      where: { id: postId }
+    });
+
+    res.json({ message: "Post deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).json({ message: "Failed to delete post" });
+  }
+};
+
+
 
 
 export { createPost, getPosts };

@@ -44,6 +44,7 @@
     font-size: 1.5rem;
     min-width: 100px;
     text-align: center;
+    cursor: pointer;
 }
 .post-detail_thumbnail {
     margin: 1rem 0;

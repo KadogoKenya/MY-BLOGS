@@ -50,4 +50,63 @@ const getPosts = async (req, res) => {
   }
 };
 
+export const getPostById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const post = await prisma.post.findUnique({
+      where: { id: parseInt(id) }, 
+      include: { author: true }
+    });
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    res.json({ post });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const updatePost = async (req, res) => {
+  const postId = parseInt(req.params.id);
+  const { title, category, description } = req.body;
+  const thumbnailFile = req.file;
+
+  console.log("Updating post:", { postId, title, category, description });
+
+  try {
+    const existingPost = await prisma.post.findUnique({ where: { id: postId } });
+    if (!existingPost) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    let thumbnail = existingPost.thumbnail;
+
+    if (thumbnailFile) {
+      // Optional: remove old file if needed
+      thumbnail = thumbnailFile.filename;
+    }
+
+    const updatedPost = await prisma.post.update({
+      where: { id: postId },
+      data: {
+        title,
+        category,
+        description,
+        thumbnail,
+        updatedAt: new Date(),
+      }
+    });
+
+    return res.json({ message: 'Post updated', post: updatedPost });
+
+  } catch (error) {
+    console.error("Error updating post:", error);
+    return res.status(500).json({ message: 'Failed to update post', error });
+  }
+};
+
+
 export { createPost, getPosts };

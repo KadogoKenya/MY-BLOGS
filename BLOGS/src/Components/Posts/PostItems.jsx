@@ -16,8 +16,10 @@ function PostItems({ postID, category, title, description, author, thumbnail, cr
   return (
     <div className="post-card">
       <div className="post_thumbnail">
-        <img src={thumbnail} alt={title} />
-      </div>
+          <Link to={`/posts/${postID}`}>
+            <img src={thumbnail} alt={title} />
+          </Link>
+    </div>
 
       <div className="post-content">
         <Link to={`/posts/${postID}`} className="post-title">

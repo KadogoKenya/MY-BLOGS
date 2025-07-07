@@ -15,8 +15,6 @@ import Register from './Pages/Register/Register';
 import UserProfile from './Pages/Profile/UserProfile';
 
 
-
-
 import './App.css';
 import './index.css';
 import Header from './Components/Header';

@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './CreatePost.css'; 
 
 function EditPost() {
+  const { id: postID } = useParams();
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('Uncategorised');
   const [description, setDescription] = useState('');
   const [thumbnail, setThumbnail] = useState(null);
+  const [existingThumbnail, setExistingThumbnail] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const POST_CATEGORIES = [
     "Agriculture", "Business", "Education", "Entertainment", "Art", "Investment", "Uncategorised", "Weather"
@@ -30,37 +36,69 @@ function EditPost() {
     'link', 'image'
   ];
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const res = await fetch(`http://localhost:3000/posts/${postID}`);
+        const data = await res.json();
+
+        if (res.ok) {
+          const { title, category, description, thumbnail } = data.post;
+          setTitle(title);
+          setCategory(category);
+          setDescription(description);
+          setExistingThumbnail(thumbnail); // display existing
+        } else {
+          console.error("Failed to fetch post:", data.message);
+        }
+      } catch (err) {
+        console.error("Fetch error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, [postID]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simple form validation
     if (!title || !description) {
       alert("Please provide a title and description.");
       return;
     }
 
-    const newPost = {
-      title,
-      category,
-      description,
-      thumbnail,
-      createdAt: new Date().toISOString(),
-    };
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('category', category);
+    formData.append('description', description);
+    if (thumbnail) formData.append('thumbnail', thumbnail);
 
-    console.log("Post submitted:", newPost);
-    
+    try {
+      const res = await fetch(`http://localhost:3000/posts/${postID}`, {
+        method: 'PUT',
+        body: formData,
+      });
 
-    // Clear form after submission
-    setTitle('');
-    setCategory('Uncategorised');
-    setDescription('');
-    setThumbnail(null);
+      if (res.ok) {
+        alert('Post updated!');
+        navigate(`/posts/${postID}`);
+      } else {
+        const data = await res.json();
+        console.error("Update failed:", data.message);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
+
+  if (loading) return <h2>Loading...</h2>;
 
   return (
     <section className="create_post">
       <div className="container">
-        <h2>Create Post</h2>
+        <h2>Edit Post</h2>
         <form className="form create_posts_form" onSubmit={handleSubmit}>
           <input
             type="text"
@@ -85,6 +123,17 @@ function EditPost() {
             placeholder="Write your post content here..."
           />
 
+          {existingThumbnail && (
+            <div style={{ marginBottom: "10px" }}>
+              <strong>Current Thumbnail:</strong> <br />
+              <img
+                src={`http://localhost:3000/uploads/${existingThumbnail}`}
+                alt="thumbnail"
+                width="100"
+              />
+            </div>
+          )}
+
           <input
             type="file"
             onChange={e => setThumbnail(e.target.files[0])}
@@ -100,5 +149,4 @@ function EditPost() {
   );
 }
 
-
-export default EditPost
+export default EditPost;

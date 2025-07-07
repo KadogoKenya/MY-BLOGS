@@ -30,7 +30,7 @@ app.use('/posts', postRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api', authorRoutes);
 
-// Test route (optional)
+
 app.get('/', (req, res) => {
   res.send('API is up and running');
 });

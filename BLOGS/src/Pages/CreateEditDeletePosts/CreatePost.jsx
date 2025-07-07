@@ -4,19 +4,16 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './CreatePost.css';
 import Footer from '../../Components/Footer';
-import { useAuth } from '../../context/AuthContext'; // Make sure this path is correct
 
 function CreatePost() {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('Uncategorised');
   const [description, setDescription] = useState('');
   const [thumbnail, setThumbnail] = useState(null);
-  const { authToken, currentUser } = useAuth(); 
   const navigate = useNavigate();
 
   const POST_CATEGORIES = [
-    "Agriculture", "Business", "Education", "Entertainment", 
-    "Art", "Investment", "Uncategorised", "Weather"
+    "Agriculture", "Business", "Education", "Entertainment", "Art", "Investment", "Uncategorised", "Weather"
   ];
 
   const modules = {
@@ -30,20 +27,12 @@ function CreatePost() {
   };
 
   const formats = [
-    'header',
-    'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent',
-    'link', 'image'
+    'header', 'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent', 'link', 'image'
   ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!currentUser) {
-      alert("You must be logged in to create a post");
-      navigate('/login');
-      return;
-    }
 
     if (!title || !description) {
       alert("Please provide a title and description.");
@@ -54,8 +43,6 @@ function CreatePost() {
     postData.append("title", title);
     postData.append("category", category);
     postData.append("description", description);
-    postData.append("authorId", currentUser.id);
-    
     if (thumbnail) {
       postData.append("thumbnail", thumbnail);
     }
@@ -63,29 +50,25 @@ function CreatePost() {
     try {
       const response = await fetch('http://localhost:3000/posts/create', {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${authToken}`
-        },
         body: postData
       });
 
       const data = await response.json();
 
-      if(response.ok) {
+      if (response.ok) {
         alert("Post created successfully!");
-        navigate(`/posts/users/${currentUser.id}`);
+        navigate("/");
       } else {
-        throw new Error(data.message || 'Post creation failed');
+        throw new Error(data.message || "Post creation failed");
       }
 
-      // Reset form
       setTitle('');
       setCategory('Uncategorised');
       setDescription('');
       setThumbnail(null);
     } catch (error) {
       console.error("Post error:", error);
-      alert(error.message || "Failed to create a post.");
+      alert("Failed to create a post.");
     }
   };
 
@@ -94,10 +77,11 @@ function CreatePost() {
       <section className="create_post">
         <div className="container">
           <h2>Create Post</h2>
-          {currentUser && (
-            <p>Posting as: {currentUser.fullName || currentUser.email}</p>
-          )}
-          <form className="form create_posts_form" onSubmit={handleSubmit} encType="multipart/form-data">
+          <form
+            className="form create_posts_form"
+            onSubmit={handleSubmit}
+            encType="multipart/form-data"
+          >
             <input
               type="text"
               placeholder="Title"
@@ -134,6 +118,7 @@ function CreatePost() {
           </form>
         </div>
       </section>
+
       <Footer />
     </>
   );

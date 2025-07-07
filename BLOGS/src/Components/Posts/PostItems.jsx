@@ -1,7 +1,6 @@
 import React from 'react';
 import './Posts.css';
 import { Link } from 'react-router-dom';
-import Footer from '../Footer/Footer.jsx';
 
 function PostItems({ postID, category, title, description, author, thumbnail, createdAt }) {
   const shortDescription =
@@ -15,7 +14,6 @@ function PostItems({ postID, category, title, description, author, thumbnail, cr
   const authorId = author?.id;
 
   return (
-    <>
     <div className="post-card">
       <div className="post_thumbnail">
         <img src={thumbnail} alt={title} />
@@ -41,9 +39,6 @@ function PostItems({ postID, category, title, description, author, thumbnail, cr
         </div>
       </div>
     </div>
-    <Footer />
-
-    </>
   );
 }
 

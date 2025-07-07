@@ -11,18 +11,13 @@ const createPost = async (req, res) => {
         category,
         description,
         thumbnail: req.file?.filename || null,
-        authorId: req.user.id,
-       
-      include: {
-            author: {
-              select: {
-                id: true,
-                fullName: true
-              }
-            }
-          }
-        }
-        });
+        author: authorId
+          ? { connect: { id: parseInt(authorId) } }
+          : undefined // optional author if provided
+      },
+      
+    });
+
 
     res.status(201).json({ success: true, post });
   } catch (error) {

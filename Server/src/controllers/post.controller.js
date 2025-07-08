@@ -7,7 +7,9 @@ import path from 'path';
 
 const router = express.Router();
 
+
 // creating a post
+
 const createPost = async (req, res) => {
   try {
     const { title, category, description, authorId } = req.body;
@@ -33,6 +35,7 @@ const createPost = async (req, res) => {
   }
 };
 
+
 // Get all posts with author name
 const getPosts = async (req, res) => {
   try {
@@ -56,6 +59,7 @@ const getPosts = async (req, res) => {
     res.status(500).json({ message: 'Internal server error occurred' });
   }
 };
+
 
 // getting posts by id
 

@@ -57,6 +57,8 @@ const getPosts = async (req, res) => {
   }
 };
 
+// getting posts by id
+
 export const getPostById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -75,6 +77,7 @@ export const getPostById = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 // Editing a post
 

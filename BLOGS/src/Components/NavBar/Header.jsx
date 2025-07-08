@@ -14,7 +14,7 @@ function Header() {
 
         <ul className={`nav_menu ${isMenuOpen ? 'active' : ''}`}>
           <li><NavLink to="/profile/sdfsdf" className="nav-link">UserProfile</NavLink></li>
-          <li><NavLink to="/create" className="nav-link">Create Posts</NavLink></li>
+          <li><NavLink to="/login" className="nav-link">Create Posts</NavLink></li>
           <li><NavLink to="/authors" className="nav-link">Authors</NavLink></li>
           <li><NavLink to="/logout" className="nav-link">Logout</NavLink></li>
         </ul>

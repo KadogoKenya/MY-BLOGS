@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './CreatePost.css'; 
+import Footer from '../../Components/Footer';
 
 function EditPost() {
   const { id: postID } = useParams();
@@ -47,7 +48,7 @@ function EditPost() {
           setTitle(title);
           setCategory(category);
           setDescription(description);
-          setExistingThumbnail(thumbnail); // display existing
+          setExistingThumbnail(thumbnail);
         } else {
           console.error("Failed to fetch post:", data.message);
         }
@@ -96,6 +97,7 @@ function EditPost() {
   if (loading) return <h2>Loading...</h2>;
 
   return (
+    <>
     <section className="create_post">
       <div className="container">
         <h2>Edit Post</h2>
@@ -146,7 +148,12 @@ function EditPost() {
         </form>
       </div>
     </section>
+     <Footer />
+
+    </>
+   
   );
+
 }
 
 export default EditPost;

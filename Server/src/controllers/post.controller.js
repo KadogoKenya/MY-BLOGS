@@ -3,9 +3,11 @@ import express from 'express'
 import fs from 'fs';
 import path from 'path';
 
+
+
 const router = express.Router();
 
-
+// creating a post
 const createPost = async (req, res) => {
   try {
     const { title, category, description, authorId } = req.body;
@@ -18,7 +20,7 @@ const createPost = async (req, res) => {
         thumbnail: req.file?.filename || null,
         author: authorId
           ? { connect: { id: parseInt(authorId) } }
-          : undefined // optional author if provided
+          : undefined
       },
       
     });
@@ -74,6 +76,8 @@ export const getPostById = async (req, res) => {
   }
 };
 
+// Editing a post
+
 export const updatePost = async (req, res) => {
   const postId = parseInt(req.params.id);
   const { title, category, description } = req.body;
@@ -113,6 +117,9 @@ export const updatePost = async (req, res) => {
   }
 };
 
+
+// deleting a post
+
 export const deletePost = async (req, res) => {
   const postId = parseInt(req.params.id);
 
@@ -141,6 +148,34 @@ export const deletePost = async (req, res) => {
   }
 };
 
+// getting posts by categories
+export const getPostsByCategory = async (req, res) => {
+  const { category } = req.params;
+
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        category: category
+      },
+      include: {
+        author: {
+          select: {
+            id: true,
+            fullName: true
+          }
+        }
+      },
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
+
+    res.json({ success: true, posts });
+  } catch (error) {
+    console.error("Error fetching category posts:", error);
+    res.status(500).json({ success: false, message: "Failed to fetch category posts" });
+  }
+};
 
 
 

@@ -1,12 +1,8 @@
 import express from 'express';
 import upload from '../middleware/upload.js';
-import { createPost, getPosts } from '../controllers/post.controller.js';
-import { getPostsByCategory } from '../controllers/category.controllers.js';
+import { createPost, getPosts, getPostsByCategory } from '../controllers/post.controller.js';
 import { getPostById } from '../controllers/post.controller.js';
 import { updatePost, deletePost } from '../controllers/post.controller.js';
-
-
-
 
 
 
@@ -14,9 +10,9 @@ const router = express.Router();
 
 router.post('/create', upload.single('thumbnail'),  createPost);
 
-router.get('/', getPosts)
+router.get('/', getPosts);
 
-router.get('./posts/categories/:category', getPostsByCategory )
+router.get('/categories/:category', getPostsByCategory);
 
 router.get('/:id', getPostById);
 

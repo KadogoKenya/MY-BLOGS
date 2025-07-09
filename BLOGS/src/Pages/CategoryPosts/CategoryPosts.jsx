@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import PostItems from '../../Components/Posts/PostItems';
 import './CategoryPosts.css';
 import Footer from '../../Components/Footer';
+import Header from '../../Components/Header';
 
 function CategoryPosts() {
   const { category } = useParams();
@@ -35,6 +36,7 @@ function CategoryPosts() {
 
   return (
     <>
+    <Header />
     <section className="category-posts">
       <h2 className="category-posts__title">Posts in {category}</h2>
 

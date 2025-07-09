@@ -4,6 +4,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './CreatePost.css'; 
 import Footer from '../../Components/Footer';
+import Header from '../../Components/Header';
 
 function EditPost() {
   const { id: postID } = useParams();
@@ -98,6 +99,7 @@ function EditPost() {
 
   return (
     <>
+    <Header />
     <section className="create_post">
       <div className="container">
         <h2>Edit Post</h2>

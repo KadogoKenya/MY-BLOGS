@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PostItems from './PostItems';
 import './Posts.css';
 import Footer from '../Footer/Footer.jsx'
+import Header from '../Header.jsx';
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -30,6 +31,7 @@ function Posts() {
 
  return (
   <>
+  <Header />
     <section className="posts">
       {loading ? (
         <h2>Loading...</h2>

@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import PostAuthor from '../../Components/Posts/PostAuthor';
 import './PostDetail.css';
 import Footer from '../../Components/Footer/Footer'
+import Header from '../../Components/Header';
 
 function PostDetail() {
   const { id: postID } = useParams();
@@ -72,6 +73,7 @@ const handleDelete = async () => {
 
   return (
     <>
+    <Header />
     <section className="post-detail">
       <div className="container post-detail_container">
         <div className="post-detail_header">

@@ -2,7 +2,7 @@ import React from 'react';
 import './Posts.css';
 import { Link } from 'react-router-dom';
 
-function PostItems({ postID, category, title, description, author, thumbnail, createdAt }) {
+function PostItems({ postID, category, title, description, author = {}, thumbnail, createdAt }) {
   const shortDescription =
     description.length > 145 ? description.substr(0, 145) + '...' : description;
 

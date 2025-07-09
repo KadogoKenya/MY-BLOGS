@@ -1,20 +1,23 @@
 import prisma from '../lib/db.js';
 
-const getAllAuthors = async (req, res) => {
+export const getAllAuthors = async (req, res) => {
   try {
     const authors = await prisma.user.findMany({
-      include: {
+      select: {
+        id: true,
+        fullName: true,
+        avatar: true,
         _count: {
           select: { posts: true }
         }
       }
     });
 
-    res.status(200).json({ authors });
+    res.json({ success: true, authors });
   } catch (error) {
-    console.error("Error fetching authors:", error);
-    res.status(500).json({ message: "Failed to fetch authors" });
+    console.error("Failed to fetch authors:", error);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };
 
-export default getAllAuthors
+

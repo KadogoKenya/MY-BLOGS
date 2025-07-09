@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import PostAuthor from '../../Components/Posts/PostAuthor';
 import './PostDetail.css';
+import Footer from '../../Components/Footer/Footer'
 
 function PostDetail() {
   const { id: postID } = useParams();
@@ -70,6 +71,7 @@ const handleDelete = async () => {
   const authorId = author?.id;
 
   return (
+    <>
     <section className="post-detail">
       <div className="container post-detail_container">
         <div className="post-detail_header">
@@ -98,6 +100,9 @@ const handleDelete = async () => {
         </div>
       </div>
     </section>
+
+    <Footer />
+    </>
   );
 }
 

@@ -73,3 +73,12 @@ cd blog-app
     cd server
     npx prisma generate
     npx prisma migrate dev --name init
+    npx prisma studuo
+
+### app set up
+- Backend
+    cd server
+    npm run dev or npx nodemon Server.js
+- Frontend
+    cd BLOGS
+    npm run dev

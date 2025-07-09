@@ -55,7 +55,7 @@ MY BLOGS/
 
 ### 1. Clone the Repo
 
-git clone https://github.com/your-username/blog-app.git
+git clone [https://github.com/your-username/blog-app.git](https://github.com/KadogoKenya/MY-BLOGS.git)
 cd blog-app
 
 ### 1. Clone the Repo

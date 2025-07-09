@@ -37,7 +37,7 @@ function Login() {
         if (data?.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           alert("Login successful!");
-          navigate("/create");
+          navigate("/posts");
         } else {
           alert("Unexpected response format.");
         }

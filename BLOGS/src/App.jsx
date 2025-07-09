@@ -23,10 +23,11 @@ import Footer from './Components/Footer'
 function App() {
   return (
     <BrowserRouter>
-      <Header />
+      {/* <Header /> */}
       {/* <Footer /> */}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="landingpage" element={<LandingPage />} />
         <Route path="posts/:id" element={<PostDetail />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />

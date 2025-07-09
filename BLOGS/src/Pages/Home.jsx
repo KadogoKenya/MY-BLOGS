@@ -10,12 +10,15 @@ import Authors from './AuthorPosts/Authors';
 import UserProfile from './Profile/UserProfile';
 import Dashboard from './DashboardPage/Dashboard';
 import CreatePost from './CreateEditDeletePosts/CreatePost';
+import LandingPage from './LandingPage';
+
 
 
 
 function Home() {
   return (
     <div>
+      {/* <LandingPage /> */}
       <Posts />
       {/* <PostDetail /> */}
       {/* <AuthorPosts /> */}

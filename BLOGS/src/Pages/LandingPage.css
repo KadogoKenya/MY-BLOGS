@@ -59,13 +59,13 @@
 }
 
 .create-account {
-  background: transparent;
-  color: white;
+  background: #3110ec;
+  color: #4285f4;
   border: 1px solid white;
 }
 
 .create-account:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: #f1f1f1;
 }
 
 /* Main Content Styles */

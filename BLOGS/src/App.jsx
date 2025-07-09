@@ -13,6 +13,8 @@ import Logout from './Pages/Register/Logout';
 import PostDetail from './Pages/PostDetails/PostDetail';
 import Register from './Pages/Register/Register';
 import UserProfile from './Pages/Profile/UserProfile';
+import LandingPage from './Pages/LandingPage';
+import Posts from './Components/Posts/Posts.jsx'
 
 
 import './App.css';
@@ -27,7 +29,8 @@ function App() {
       {/* <Footer /> */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="landingpage" element={<LandingPage />} />
+        {/* <Route path="/" element={<LandingPage />} /> */}
+        <Route path="/posts" element={<Posts />} />
         <Route path="posts/:id" element={<PostDetail />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />

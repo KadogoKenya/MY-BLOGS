@@ -18,8 +18,8 @@ import LandingPage from './LandingPage';
 function Home() {
   return (
     <div>
-      {/* <LandingPage /> */}
-      <Posts />
+      <LandingPage />
+      
       {/* <PostDetail /> */}
       {/* <AuthorPosts /> */}
       {/* <CategoryPosts />  */}

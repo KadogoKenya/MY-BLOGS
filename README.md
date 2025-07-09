@@ -69,3 +69,7 @@ cd blog-app
 ### Setup Environment Variables
     DATABASE_URL=postgresql://user:password@localhost:5432/blogdb
     PORT=3000
+### Prisma Setup
+    cd server
+    npx prisma generate
+    npx prisma migrate dev --name init

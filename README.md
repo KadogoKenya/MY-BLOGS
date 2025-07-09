@@ -1,8 +1,7 @@
-# 📝 Blog Application
+# Blog Application
 
 A full-stack Blog Platform where users can read, create, update, and delete blog posts. Each post is linked to an author and includes category filtering, image uploads, and more.
 
----
 
 ## 🔧 Tech Stack
 
@@ -22,7 +21,7 @@ A full-stack Blog Platform where users can read, create, update, and delete blog
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 MY BLOGS/
 ├── client/ # React frontend
